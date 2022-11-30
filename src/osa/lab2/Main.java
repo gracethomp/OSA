@@ -8,6 +8,33 @@ public class Main {
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_CYAN = "\u001B[36m";
 
+    public static void doPairedComparisons(HashMap<Integer, Integer> hashMap, List<Integer> integers) {
+        System.out.println('\n' + ANSI_CYAN + "Method of paired comparisons".toUpperCase(Locale.ROOT));
+        outputData(hashMap, integers, "Initial estimates:");
+        HashMap<Integer, Integer> hashMap1 = new HashMap<>();
+        System.out.print("\n\n\t");
+        for (Integer integer : integers)
+            System.out.print("Z" + hashMap.get(integer) + "\t");
+        System.out.print("\n");
+        for (int i = 0; i < integers.size(); i++) {
+            int result = 0;
+            for(int j = 0; j < integers.size(); j++) {
+                if (j == 0)
+                    System.out.print("Z" + hashMap.get(integers.get(i)) + " ");
+                if(i != j) {
+                    int a = integers.get(i) > integers.get(j) ? 1:0;
+                    result += a;
+                    hashMap1.put(hashMap.get(integers.get(i)), result);
+                    System.out.print("\t" + a + " ");
+                }
+                else
+                    System.out.print("\t-  ");
+            }
+            System.out.println("\n");
+        }
+        System.out.println(hashMap1);
+    }
+
     public static void doSuccessiveComparisons(HashMap<Integer, Integer> hashMap, List<Integer> integers) {
         System.out.println('\n' + ANSI_CYAN + "Method of successive comparisons".toUpperCase(Locale.ROOT));
         outputData(hashMap, integers, "Initial estimates:");
@@ -35,8 +62,8 @@ public class Main {
         System.out.println('\n' + ANSI_BLUE + title);
         for(Integer a : integers)
             System.out.println(ANSI_RESET + "p" + hashMap.get(a) + ": " + a);
-
     }
+
 
     public static void main(String[] args) {
         HashMap<Integer, Integer> hashMap = new HashMap<>();
@@ -44,7 +71,9 @@ public class Main {
         hashMap.put(100, 2);
         hashMap.put(75, 3);
         List<Integer> integers = new ArrayList<>(hashMap.keySet());
+        doPairedComparisons(hashMap, integers);
         doSuccessiveComparisons(hashMap, integers);
+
         //System.out.println(integers);
 
     }
