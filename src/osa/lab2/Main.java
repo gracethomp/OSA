@@ -71,7 +71,7 @@ public class Main {
             System.out.println("C" + hashMap.get(a) + ": " + hashMap1.get(hashMap.get(a)));
         }
         System.out.println(ANSI_BLUE + '\n' + "Target weights");
-        DecimalFormat decimalFormat = new DecimalFormat("#.###");
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
         for(Integer a : hashMap1.keySet())
             System.out.println(ANSI_RESET + "V" + a + ": " +
                     decimalFormat.format((double) hashMap1.get(a)/integers.size()) + ';');
