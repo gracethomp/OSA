@@ -12,7 +12,7 @@ public class Main {
         System.out.println('\n' + ANSI_CYAN + "Method of paired comparisons".toUpperCase(Locale.ROOT));
         outputData(hashMap, integers, "Initial estimates:");
         HashMap<Integer, Integer> hashMap1 = new HashMap<>();
-        System.out.print("\n\n\t");
+        System.out.print('\n' + ANSI_BLUE + "Binary matrix:" + ANSI_RESET + "\n\t");
         for (Integer integer : integers)
             System.out.print("Z" + hashMap.get(integer) + "\t");
         System.out.print("\n");
@@ -32,7 +32,7 @@ public class Main {
             }
             System.out.println("\n");
         }
-        System.out.println(hashMap1);
+        outputResultPairedMethod(hashMap, integers, hashMap1);
     }
 
     public static void doSuccessiveComparisons(HashMap<Integer, Integer> hashMap, List<Integer> integers) {
@@ -64,6 +64,19 @@ public class Main {
             System.out.println(ANSI_RESET + "p" + hashMap.get(a) + ": " + a);
     }
 
+    public static void outputResultPairedMethod(HashMap<Integer, Integer> hashMap,
+                                                List<Integer> integers, HashMap<Integer, Integer> hashMap1) {
+        System.out.println(ANSI_BLUE + "The price of each target:" + ANSI_RESET);
+        for(Integer a : hashMap.keySet()) {
+            System.out.println("C" + hashMap.get(a) + ": " + hashMap1.get(hashMap.get(a)));
+        }
+        System.out.println(ANSI_BLUE + '\n' + "Target weights");
+        DecimalFormat decimalFormat = new DecimalFormat("#.###");
+        for(Integer a : hashMap1.keySet())
+            System.out.println(ANSI_RESET + "V" + a + ": " +
+                    decimalFormat.format((double) hashMap1.get(a)/integers.size()) + ';');
+
+    }
 
     public static void main(String[] args) {
         HashMap<Integer, Integer> hashMap = new HashMap<>();
@@ -73,8 +86,5 @@ public class Main {
         List<Integer> integers = new ArrayList<>(hashMap.keySet());
         doPairedComparisons(hashMap, integers);
         doSuccessiveComparisons(hashMap, integers);
-
-        //System.out.println(integers);
-
     }
 }
